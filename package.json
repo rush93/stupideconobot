@@ -1,0 +1,16 @@
+{
+  "name": "stupid-econobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stupid-econobot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "moment": "^2.20.1",
+    "request": "^2.87.0"
+  }
+}
