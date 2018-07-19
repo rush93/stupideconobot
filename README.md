@@ -1,4 +1,4 @@
-# the-cavalbot
+# Stupid econobot
 ## PREREQUIS
   - node
   - npm
@@ -11,9 +11,15 @@
   var token = 'BOT TOKEN'
 
   module.exports = token;
+``` 
+  - create youtubeApiKey.js
+  ```js
+  var youtubeApiKey = 'API KEY'
+
+  module.exports = youtubeApiKey;
 ```
   - install modules `npm i`
-  - run bot `node the-cavalbot.js`
+  - run bot `node stipid-econobot.js`
 ## USAGE
 to view all commands `_help`
 and `_help <command>` for more info 
