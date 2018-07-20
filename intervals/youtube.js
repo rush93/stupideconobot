@@ -27,6 +27,8 @@ var youtubeRequest = function () {
       message = message.replace(new RegExp('%oldcap%', 'g'), Utils.spacer(oldcap));
       message = message.replace(new RegExp('%cap-total%', 'g'), Utils.spacer(cap - nb));
       Utils.guild.channels.get(youtube.channel).send(message);
+    }
+    if(nb != youtube.lastNbSubscribers) {
       youtube.lastNbSubscribers = nb;
     }
   })

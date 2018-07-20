@@ -13,7 +13,7 @@ function save() {
         if (err) {
             return Utils.log(err, true);
         }
-        Utils.log(`The ${Utils.Color.FgYellow}utip${Utils.Color.Reset} file was saved!`);
+        //Utils.log(`The ${Utils.Color.FgYellow}utip${Utils.Color.Reset} file was saved!`);
     });
 }
 

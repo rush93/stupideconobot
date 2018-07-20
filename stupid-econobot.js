@@ -26,7 +26,7 @@ var commands = {
 try {
   bot.on('ready', function () {
     Utils.log(Utils.Color.FgGreen + 'bot started');
-    bot.user.setActivity(globalConst.prefix + 'help pour la liste des commandes');
+    bot.user.setActivity('je suis un bot');
   });
 } catch (e) {
   Utils.log(e.stack, true);
@@ -124,3 +124,15 @@ try {
 } catch (err) {
   Utils.log(err.stack, true);
 }
+
+var isYoutube = true;
+
+setInterval(() => {
+  if(isYoutube) {
+    bot.user.setActivity(utip.found + '€ récoltés ce mois.');
+  } else {
+    bot.user.setActivity(youtube.lastNbSubscribers + ' abonnés youtube');
+  }
+  isYoutube = !isYoutube;
+
+}, 30 * 1000)
