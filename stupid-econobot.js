@@ -119,6 +119,6 @@ var runYoutubeAdvert = () => {
   })
   
 } 
-setTimeout(() => {
+setInterval(() => {
   runYoutubeAdvert();
 }, 1000);
