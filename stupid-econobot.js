@@ -129,7 +129,7 @@ var isYoutube = true;
 
 setInterval(() => {
   if(isYoutube) {
-    bot.user.setActivity(utip.found + '€ Récolté sur Utip ce mois-ci');
+    bot.user.setActivity(utip.found + '€ Récolté sur uTip ce mois-ci');
   } else {
     bot.user.setActivity(youtube.lastNbSubscribers + ' abonnés youtube');
   }
