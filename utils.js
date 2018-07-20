@@ -102,7 +102,9 @@ var sendEmbedInChannel = function (channel, color, title, content, author, field
         if (image) {
             embed.setThumbnail(image);
         }
-        embed.setFooter(author.username + "#" + author.discriminator, author.avatarURL);
+        if (author) {
+            embed.setFooter(author.username + "#" + author.discriminator, author.avatarURL);
+        }
         return channel.send("", embed);
     }
     for (var i = 0; i < fields.length; i++) {

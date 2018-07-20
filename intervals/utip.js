@@ -2,7 +2,10 @@ var request = require('request');
 var utip = require('../models/utip');
 var Utils = require('../utils');
 
-var utipRequest = function () {
+var utipRequest = function (guild) {
+  if(!utip.url) {
+    return;
+  }
   request({
     url: utip.url
   }, (error, response, body) => {
@@ -18,6 +21,17 @@ var utipRequest = function () {
     }
     if (goal != utip.goal) {
       utip.goal = goal;
+    }
+    var percent = Math.round(100 * utip.found / utip.goal);
+    if(percent != utip.percent) {
+      utip.percent = percent
+
+      if(utip.channel) {
+        var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+        var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+        Utils.sendEmbedInChannel(guild.channels.get(utip.channel), 0x00AFFF, "Utip Stupid Economics",`Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
+    Récompensez nous avec uTip: ${utip.url}`, null, []);
+      }
     }
   })
   

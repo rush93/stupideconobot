@@ -4,6 +4,8 @@ var utip = {
   found: 0,
   goal: 0,
   url: "https://www.utip.io/stupideconomics",
+  percent: 0,
+  channel: null
 }
 
 function save() {
@@ -42,6 +44,12 @@ module.exports = {
   get url() {
       return utip.url;
   },
+  get percent() {
+      return utip.percent;
+  },
+  get channel() {
+      return utip.channel;
+  },
   set found(found) {
     utip.found = found;
     save();
@@ -56,5 +64,15 @@ module.exports = {
     utip.url = url;
     save();
     return utip.url;
+  },
+  set percent(percent) {
+    utip.percent = percent;
+    save();
+    return utip.percent;
+  },
+  set channel(channel) {
+    utip.channel = channel;
+    save();
+    return utip.channel;
   }
 };

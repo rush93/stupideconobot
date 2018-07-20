@@ -8,10 +8,10 @@ var guild = null;
 
 var globalConst = require('./models/constants');
 var youtube = require('./models/youtube');
-var uptip = require('./models/utip');
+var utip = require('./models/utip');
 globalConst.init();
 youtube.init();
-uptip.init();
+utip.init();
 
 Utils.setConfig(globalConst);
 var configCommands = require('./commandes/config');
@@ -68,6 +68,9 @@ var runCommand = (args, message) => {
 }
 bot.on('message', function (message) {
   try {
+    if(message.author.bot || message.channel.type == "dm") {
+      return;
+    }
     if (message.content.substring(0, globalConst.prefix.length) === globalConst.prefix) {
       var args = message.content.split(" ");
       Utils.log('Command detected', false, message.channel.name, message.author.username, message.content);
@@ -78,6 +81,12 @@ bot.on('message', function (message) {
       }).catch((e) => {
         Utils.log(e.stack, true);
       });
+    } else if( /^(?!\!).*utip/gi.test(message.content) ) {
+      var percent = Math.round(100 * utip.found / utip.goal);
+      var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'})
+      var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+      Utils.sendEmbed(message, 0x00AFFF, "Utip Stupid Economics",`Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
+Récompensez nous avec uTip: ${utip.url}`, message.author, []);
     }
   } catch (e) {
     Utils.log(e.stack, true);
@@ -110,7 +119,7 @@ try {
 try {
   var utipRequest = require('./intervals/utip');
   setInterval(() => {
-    utipRequest();
+    utipRequest(guild);
   }, 5000); 
 } catch (err) {
   Utils.log(err.stack, true);
