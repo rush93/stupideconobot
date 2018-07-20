@@ -338,5 +338,11 @@ module.exports = {
     },
     setGuild: function (g) {
         guild = g
-    }
+    },
+    guild,
+    config,
+    spacer: function(nb) {
+    var newNum = nb.toString().match(/.{3}/g).join(' ');
+    return newNum
+  }
 }

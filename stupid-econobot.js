@@ -2,24 +2,26 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const Utils = require('./utils');
-var request = require('request');
 var token = require('./token');
-var youtubeApiKey = require('./youtubeApiKey');
 
 var guild = null;
 
 var globalConst = require('./models/constants');
 var youtube = require('./models/youtube');
+var uptip = require('./models/utip');
 globalConst.init();
 youtube.init();
+uptip.init();
 
 Utils.setConfig(globalConst);
 var configCommands = require('./commandes/config');
 var youtubeCommands = require('./commandes/youtube');
+var utipCommands = require('./commandes/utip');
 
 var commands = {
   config: configCommands,
-  youtube: youtubeCommands
+  youtube: youtubeCommands,
+  utip: utipCommands
 }
 try {
   bot.on('ready', function () {
@@ -97,40 +99,20 @@ try {
   Utils.log(err.stack, true);
 }
 
-var spacer = function(nb) {
-  var newNum = nb.toString().match(/.{3}/g).join(' ');
-  return newNum
-}
-
-var runYoutubeAdvert = () => {
-  if (!youtube.channel || !guild) {
-    return;
-  }
-  request({
-    url: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCyJDHgrsUKuWLe05GvC2lng&key="+youtubeApiKey
-  }, (error, response, body) => {
-    var result = JSON.parse(body);
-    var nb = result.items[0].statistics.subscriberCount;
-    if (nb != youtube.lastNbSubscribers && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)) {
-
-      oldcap = youtube.getNextCap(youtube.lastNbSubscribers);
-      cap = youtube.getNextCap(nb);
-      if (oldcap < cap && youtube.capmessages.length > 0) {
-        message = youtube.capmessages[Math.floor(Math.random()*youtube.capmessages.length)]
-
-      } else {
-        message = youtube.messages[Math.floor(Math.random()*youtube.messages.length)]
-      }
-      message = message.replace(new RegExp('%total%', 'g'), spacer(nb));
-      message = message.replace(new RegExp('%cap%', 'g'), spacer(cap));
-      message = message.replace(new RegExp('%oldcap%', 'g'), spacer(oldcap));
-      message = message.replace(new RegExp('%cap-total%', 'g'), spacer(cap - nb));
-      guild.channels.get(youtube.channel).send(message);
-      youtube.lastNbSubscribers = nb;
-    }
-  })
+try {
+  var youtubeRequest = require('./intervals/youtube');
   
-} 
-setInterval(() => {
-  runYoutubeAdvert();
-}, 1000);
+  setInterval(() => {
+    youtubeRequest();
+  }, 1000);
+} catch (err) {
+  Utils.log(err.stack, true);
+}
+try {
+  var utipRequest = require('./intervals/utip');
+  setInterval(() => {
+    utipRequest();
+  }, 5000); 
+} catch (err) {
+  Utils.log(err.stack, true);
+}
