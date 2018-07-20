@@ -3,6 +3,7 @@ var Utils = require('../utils');
 var youtube = {
     interval: 1000,
     messages: [],
+    capmessages: [],
     lastNbSubscribers: 0,
     channel: null,
 }
@@ -40,6 +41,9 @@ module.exports = {
   get messages() {
       return youtube.messages;
   },
+  get capmessages() {
+      return youtube.capmessages;
+  },
   get lastNbSubscribers() {
     return youtube.lastNbSubscribers;
   },
@@ -71,6 +75,16 @@ module.exports = {
     save();
     return youtube.messages;
   },
+  addCapMessage: function(capmessage) {
+    youtube.capmessages.push(capmessage);
+    save();
+    return youtube.capmessages;
+  },
+  delCapMessage: function(index) {
+    youtube.capmessages.splice(index, 1);
+    save();
+    return youtube.capmessages;
+  },
   getNextCap: function(nb) {
     
     nbOfZerro = (nb + '').length - 1;
@@ -78,7 +92,6 @@ module.exports = {
     if (firstNumber >= 8) {
       return Math.pow(10,nbOfZerro + 1); 
     }
-
-    return Math.pow(10,nbOfZerro) * nbOfZerro + Math.pow(10,nbOfZerro)
+    return Math.pow(10,nbOfZerro) * firstNumber + Math.pow(10,nbOfZerro)
   }
 };

@@ -97,6 +97,11 @@ try {
   Utils.log(err.stack, true);
 }
 
+var spacer = function(nb) {
+  var newNum = nb.toString().match(/.{3}/g).join(' ');
+  return newNum
+}
+
 var runYoutubeAdvert = () => {
   if (!youtube.channel || !guild) {
     return;
@@ -108,13 +113,20 @@ var runYoutubeAdvert = () => {
     var nb = result.items[0].statistics.subscriberCount;
     if (nb != youtube.lastNbSubscribers && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)) {
 
+      oldcap = youtube.getNextCap(youtube.lastNbSubscribers);
       cap = youtube.getNextCap(nb);
-      message = youtube.messages[Math.floor(Math.random()*youtube.messages.length)]
-      message = message.replace(new RegExp('%total%', 'g'), nb);
-      message = message.replace(new RegExp('%cap%', 'g'), cap);
-      message = message.replace(new RegExp('%cap-total%', 'g'), cap - nb);
-      youtube.lastNbSubscribers = nb;
+      if (oldcap < cap && youtube.capmessages.length > 0) {
+        message = youtube.capmessages[Math.floor(Math.random()*youtube.capmessages.length)]
+
+      } else {
+        message = youtube.messages[Math.floor(Math.random()*youtube.messages.length)]
+      }
+      message = message.replace(new RegExp('%total%', 'g'), spacer(nb));
+      message = message.replace(new RegExp('%cap%', 'g'), spacer(cap));
+      message = message.replace(new RegExp('%oldcap%', 'g'), spacer(oldcap));
+      message = message.replace(new RegExp('%cap-total%', 'g'), spacer(cap - nb));
       guild.channels.get(youtube.channel).send(message);
+      youtube.lastNbSubscribers = nb;
     }
   })
   
