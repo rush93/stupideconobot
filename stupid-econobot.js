@@ -88,7 +88,6 @@ try {
   bot.login(token).then(() => {
     guild = bot.guilds.first()
     Utils.setGuild(guild);
-    runYoutubeAdvert();
   }).catch((e) => {
     Utils.log(e, true);
   })
