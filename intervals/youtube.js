@@ -5,9 +5,6 @@ var Utils = require('../utils');
 const channelYoutubeId = 'UCyJDHgrsUKuWLe05GvC2lng';
 
 var youtubeRequest = function (guild) {
-  if (!youtube.channel) {
-    return;
-  }
   request({
    url: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+channelYoutubeId+"&key="+youtubeApiKey,
   }, (error, response, body) => {
@@ -27,7 +24,8 @@ var youtubeRequest = function (guild) {
       message = message.replace(new RegExp('%cap%', 'g'), Utils.spacer(cap));
       message = message.replace(new RegExp('%oldcap%', 'g'), Utils.spacer(oldcap));
       message = message.replace(new RegExp('%cap-total%', 'g'), Utils.spacer(cap - nb));
-      guild.channels.get(youtube.channel).send(message);
+      if (!youtube.channel)
+        guild.channels.get(youtube.channel).send(message);
     }
     if(nb !== youtube.lastNbSubscribers) {
       youtube.lastNbSubscribers = nb;
