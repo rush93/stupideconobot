@@ -1,6 +1,5 @@
 data/**
 node_modules
 node_modules/**
-token.js
-youtubeApiKey.js
 .DS_Store
+.idea/
