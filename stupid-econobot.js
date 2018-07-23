@@ -81,7 +81,7 @@ bot.on('message', function (message) {
       }).catch((e) => {
         Utils.log(e.stack, true);
       });
-    } else if( /^(?!\!).*utip/gi.test(message.content) ) {
+    } else if( /(^| )utip($| )/gi.test(message.content) ) {
       var percent = Math.round(100 * utip.found / utip.goal);
       var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'})
       var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
