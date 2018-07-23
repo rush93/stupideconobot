@@ -345,5 +345,17 @@ module.exports = {
     config,
     spacer: function(nb) {
         return nb.toLocaleString().replace(/,/g, ' ');
+    },
+    sendUtipMessage: function (utip, percent, channel) {
+        var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+        var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+        sendEmbedInChannel(
+            guild.channels.get(channel),
+            0x00AFFF,
+            "Utip Stupid Economics",
+            `Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
+Soutenez-nous nous avec uTip: ${utip.url}`,
+            null,
+            []);
     }
 }

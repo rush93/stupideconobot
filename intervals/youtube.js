@@ -19,7 +19,6 @@ var youtubeRequest = function (guild) {
       cap = youtube.getNextCap(nb);
       if (oldcap < cap && youtube.capmessages.length > 0) {
         message = youtube.capmessages[Math.floor(Math.random()*youtube.capmessages.length)]
-
       } else {
         message = youtube.messages[Math.floor(Math.random()*youtube.messages.length)]
       }

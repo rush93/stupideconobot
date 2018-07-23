@@ -20,6 +20,25 @@ var commands = {
         utip.channel = message.mentions.channels.first().id;
         Utils.reply(message, 'Le channel d\'anonces à bien été modifié.');
       }
+  },
+  cooldown: {
+    help: [
+        'Permet de changer le cooldown des messages utip.'
+    ],
+    args: '[cooldown]',
+    runCommand: (args, message) => {
+      if (args.length === 0) {
+        Utils.reply(message, "**cooldown: **: " + utip.cooldown + "");
+        return;
+      }
+        let nb = Number(args[0]);
+      if (isNaN(nb) && nb <= 0) {
+        Utils.reply(message, "Le cooldown dois être un entier positif.", true);
+        return;
+      }
+      utip.cooldown = nb;
+      Utils.reply(message, "Le cooldown à bien été modifié.");
+    }
   }
 }
 var help = function (message) {
