@@ -5,7 +5,9 @@ var utip = {
   goal: 0,
   url: "https://www.utip.io/stupideconomics",
   percent: 0,
-  channel: null
+  channel: null,
+  cooldown: null,
+  lastUsed: null
 }
 
 function save() {
@@ -50,6 +52,12 @@ module.exports = {
   get channel() {
       return utip.channel;
   },
+  get cooldown() {
+      return utip.cooldown;
+  },
+  get lastUsed() {
+      return utip.lastUsed;
+  },
   set found(found) {
     utip.found = found;
     save();
@@ -74,5 +82,15 @@ module.exports = {
     utip.channel = channel;
     save();
     return utip.channel;
+  },
+  set cooldown(cooldown) {
+    utip.cooldown = cooldown;
+    save();
+    return utip.cooldown;
+  },
+  set lastUsed(lastUsed) {
+    utip.lastUsed = lastUsed;
+    save();
+    return utip.lastUsed;
   }
 };

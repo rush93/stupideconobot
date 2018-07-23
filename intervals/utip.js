@@ -27,10 +27,7 @@ var utipRequest = function (guild) {
       utip.percent = percent
 
       if(utip.channel) {
-        var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
-        var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
-        Utils.sendEmbedInChannel(guild.channels.get(utip.channel), 0x00AFFF, "Utip Stupid Economics",`Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
-    Récompensez nous avec uTip: ${utip.url}`, null, []);
+        Utils.sendUtipMessage(utip, percent, utip.channel);
       }
     }
   });
