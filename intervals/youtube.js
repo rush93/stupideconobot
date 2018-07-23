@@ -6,13 +6,11 @@ const channelYoutubeId = 'UCyJDHgrsUKuWLe05GvC2lng';
 
 var youtubeRequest = function (guild) {
   if (!youtube.channel) {
-    console.log("LOG : youtube.channel = "+ youtube.channel+". and Utils.guild = "+Utils.guild);
     return;
   }
   request({
    url: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+channelYoutubeId+"&key="+youtubeApiKey,
   }, (error, response, body) => {
-    console.log(body);
     let result = JSON.parse(body);
     let nb = result.items[0].statistics.subscriberCount;
     if (nb !== youtube.lastNbSubscribers && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)) {

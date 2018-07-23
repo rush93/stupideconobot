@@ -344,7 +344,6 @@ module.exports = {
     guild,
     config,
     spacer: function(nb) {
-      console.log("nb : " + nb);
       if (nb.toString() >= 3)
         return nb.toString().match(/.{3}/g).join(' ');
       return nb;
