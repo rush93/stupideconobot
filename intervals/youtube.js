@@ -5,16 +5,16 @@ var Utils = require('../utils');
 const channelYoutubeId = 'UCyJDHgrsUKuWLe05GvC2lng';
 
 var youtubeRequest = function (guild) {
-  if (!youtube.channel) {
-    return;
-  }
   request({
    url: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+channelYoutubeId+"&key="+youtubeApiKey,
   }, (error, response, body) => {
     let result = JSON.parse(body);
     let nb = result.items[0].statistics.subscriberCount;
-    if (nb !== youtube.lastNbSubscribers && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)) {
-
+    if (
+      nb !== youtube.lastNbSubscribers 
+      && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)
+      && youtube.channel
+    ) {
       oldcap = youtube.getNextCap(youtube.lastNbSubscribers);
       cap = youtube.getNextCap(nb);
       if (oldcap < cap && youtube.capmessages.length > 0) {
