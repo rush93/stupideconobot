@@ -109,9 +109,9 @@ try {
 
 try {
   var youtubeRequest = require('./intervals/youtube');
-  
+
   setInterval(() => {
-    youtubeRequest();
+    youtubeRequest(guild);
   }, 1000);
 } catch (err) {
   Utils.log(err.stack, true);
@@ -120,7 +120,7 @@ try {
   var utipRequest = require('./intervals/utip');
   setInterval(() => {
     utipRequest(guild);
-  }, 5000); 
+  }, 5000);
 } catch (err) {
   Utils.log(err.stack, true);
 }
