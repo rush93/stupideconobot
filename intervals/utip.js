@@ -33,7 +33,6 @@ var utipRequest = function (guild) {
     Récompensez nous avec uTip: ${utip.url}`, null, []);
       }
     }
-  })
-  
+  });
 }
 module.exports = utipRequest;
