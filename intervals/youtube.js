@@ -32,7 +32,6 @@ var youtubeRequest = function (guild) {
     if(nb !== youtube.lastNbSubscribers) {
       youtube.lastNbSubscribers = nb;
     }
-  })
-
+  });
 }
 module.exports = youtubeRequest;

@@ -344,8 +344,6 @@ module.exports = {
     guild,
     config,
     spacer: function(nb) {
-      if (nb.toString() >= 3)
-        return nb.toString().match(/.{3}/g).join(' ');
-      return nb;
-  }
+        return nb.toLocaleString().replace(/,/g, ' ');
+    }
 }
