@@ -61,6 +61,31 @@ var commands = {
           Utils.sendEmbed(message, 0xE8C408, 'Liste des messges:', '', message.author, fields, null, 10);
         }
     },
+    test: {
+        help: [
+            'Permet de tester les messages.'
+        ],
+        args: '<index>',
+        runCommand: (args, message) => {
+          if (args.length === 0) {
+            Utils.reply(message, 'Veuillez renseigner l\'index du message à supprimé.', true);
+            return;
+          }
+          var index = Number(args[0]);
+          if (isNaN(index) || index - 1 < 0 || index > youtube.messages.length) {
+            Utils.reply(message, `L'index doit être compris entre 1 et ${youtube.messages.length} .`, true);
+            return;
+          }
+          oldcap = youtube.getNextCap(youtube.lastNbSubscribers);
+          cap = youtube.getNextCap(youtube.lastNbSubscribers);
+          ytmessage = youtube.messages[index - 1];
+          ytmessage = ytmessage.replace(new RegExp('%total%', 'g'), Utils.spacer(youtube.lastNbSubscribers));
+          ytmessage = ytmessage.replace(new RegExp('%cap%', 'g'), Utils.spacer(cap));
+          ytmessage = ytmessage.replace(new RegExp('%oldcap%', 'g'), Utils.spacer(oldcap));
+          ytmessage = ytmessage.replace(new RegExp('%cap-total%', 'g'), Utils.spacer(cap - youtube.lastNbSubscribers));
+          message.channel.send(ytmessage);
+        }
+    },
     addmessage: {
       help: [
         'Permet d\'ajouter un message dans la liste',
@@ -117,6 +142,31 @@ var commands = {
             });
           }
           Utils.sendEmbed(message, 0xE8C408, 'Liste des messges de passage de cap:', '', message.author, fields, null, 10);
+        }
+    },
+    testcap: {
+        help: [
+            'Permet de tester les capmessages.'
+        ],
+        args: '<index>',
+        runCommand: (args, message) => {
+          if (args.length === 0) {
+            Utils.reply(message, 'Veuillez renseigner l\'index du message à supprimé.', true);
+            return;
+          }
+          var index = Number(args[0]);
+          if (isNaN(index) || index - 1 < 0 || index > youtube.capmessages.length) {
+            Utils.reply(message, `L'index doit être compris entre 1 et ${youtube.capmessages.length} .`, true);
+            return;
+          }
+          oldcap = youtube.getNextCap(youtube.lastNbSubscribers);
+          cap = youtube.getNextCap(youtube.lastNbSubscribers);
+          ytmessage = youtube.capmessages[index - 1]
+          ytmessage = ytmessage.replace(new RegExp('%total%', 'g'), Utils.spacer(youtube.lastNbSubscribers));
+          ytmessage = ytmessage.replace(new RegExp('%cap%', 'g'), Utils.spacer(cap));
+          ytmessage = ytmessage.replace(new RegExp('%oldcap%', 'g'), Utils.spacer(oldcap));
+          ytmessage = ytmessage.replace(new RegExp('%cap-total%', 'g'), Utils.spacer(cap - youtube.lastNbSubscribers));
+          message.channel.send(ytmessage);
         }
     },
     addcapmessage: {
