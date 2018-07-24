@@ -89,7 +89,7 @@ const UnicodeReactMap = {
 const UnicodeConfirmReact = '✅';
 const UnicodeCancelReact = '❌';
 var config = null;
-var guild = null;
+var Utilsguild = null;
 
 var sendEmbedInChannel = function (channel, color, title, content, author, fields, image = null, maxField = 25) {
     var embed;
@@ -305,8 +305,8 @@ module.exports = {
                 grid: true
             })
         }
-        if (config && config.logChannel && guild && (by || err)) {
-            sendEmbedInChannel(guild.channels.get(config.logChannel), err ? 0xA80000 : 0x00AFFF, err ? 'Erreur' : 'Log', err ? text.replace(/\x1b\[[0-9]*m/im, '') : '', null, fields);
+        if (config && config.logChannel && Utilsguild && (by || err)) {
+            sendEmbedInChannel(Utilsguild.channels.get(config.logChannel), err ? 0xA80000 : 0x00AFFF, err ? 'Erreur' : 'Log', err ? text.replace(/\x1b\[[0-9]*m/im, '') : '', null, fields);
         }
         console.log(toWrite);
         if(err) {
@@ -339,9 +339,11 @@ module.exports = {
         config = conf
     },
     setGuild: function (g) {
-        guild = g
+        Utilsguild = g
     },
-    guild,
+    get guild() {
+        return Utilsguild;
+    }, 
     config,
     spacer: function(nb) {
         return nb.toLocaleString('fr-FR').replace(/,/g, ' ');
@@ -350,7 +352,7 @@ module.exports = {
         var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
         var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
         sendEmbedInChannel(
-            guild.channels.get(channel),
+            Utilsguild.channels.get(channel),
             0x00AFFF,
             "Utip Stupid Economics",
             `Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
