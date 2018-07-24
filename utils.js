@@ -344,7 +344,7 @@ module.exports = {
     guild,
     config,
     spacer: function(nb) {
-        return nb.toLocaleString().replace(/,/g, ' ');
+        return nb.toLocaleString('fr-FR').replace(/,/g, ' ');
     },
     sendUtipMessage: function (utip, percent, channel) {
         var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});

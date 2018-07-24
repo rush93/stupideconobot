@@ -139,13 +139,13 @@ try {
   Utils.log(err.stack, true);
 }
 
-var isYoutube = true;
+var isYoutube = false;
 
 setInterval(() => {
   if (isYoutube) {
-    bot.user.setActivity(Utils.spacer(utip.found) + "€ sur uTip ce mois-ci");
+    bot.user.setActivity(Utils.spacer(Number(utip.found)) + "€ sur uTip ce mois-ci");
   } else {
-    bot.user.setActivity(Utils.spacer(youtube.lastNbSubscribers) + " abonnés youtube");
+    bot.user.setActivity(Utils.spacer(Number(youtube.lastNbSubscribers)) + " abonnés youtube");
   }
   isYoutube = !isYoutube;
 
