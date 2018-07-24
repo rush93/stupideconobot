@@ -78,7 +78,7 @@ var commands = {
         Utils.reply(message, 'Le message à bien été ajouté.');
       }
     },
-    deldessage: {
+    delmessage: {
       help: [
         'Permet de supprimer un message dans la liste'
       ],
@@ -89,7 +89,7 @@ var commands = {
           return;
         }
         var index = Number(args[0]);
-        if (isNaN(index) || index - 1 <= 0 || index > youtube.messages.length) {
+        if (isNaN(index) || index - 1 < 0 || index > youtube.messages.length) {
           Utils.reply(message, `L'index doit être compris entre 1 et ${youtube.messages.length} .`, true);
           return;
         }
@@ -148,7 +148,7 @@ var commands = {
           return;
         }
         var index = Number(args[0]);
-        if (isNaN(index) || index - 1 <= 0 || index > youtube.capmessages.length) {
+        if (isNaN(index) || index - 1 < 0 || index > youtube.capmessages.length) {
           Utils.reply(message, `L'index doit être compris entre 1 et ${youtube.capmessages.length} .`, true);
           return;
         }
