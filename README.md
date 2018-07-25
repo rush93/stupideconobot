@@ -21,5 +21,5 @@
   - install modules `npm i`
   - run bot `node stipid-econobot.js`
 ## USAGE
-to view all commands `_help`
-and `_help <command>` for more info 
+To view all commands `_help`
+and `_help <command>` for more info .
