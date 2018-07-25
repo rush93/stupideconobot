@@ -22,4 +22,4 @@
   - run bot `node stipid-econobot.js`
 ## USAGE
 To view all commands `_help`
-and `_help <command>` for more info .
+and `_help <command>` for more info.
