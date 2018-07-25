@@ -306,7 +306,12 @@ module.exports = {
             })
         }
         if (config && config.logChannel && Utilsguild && (by || err)) {
-            sendEmbedInChannel(Utilsguild.channels.get(config.logChannel), err ? 0xA80000 : 0x00AFFF, err ? 'Erreur' : 'Log', err ? text.replace(/\x1b\[[0-9]*m/im, '') : '', null, fields);
+            if (text) {
+                text = text.replace(/\x1b\[[0-9]*m/im, '');
+            } else {
+                text = "ERREUR NULL";
+            }
+            sendEmbedInChannel(Utilsguild.channels.get(config.logChannel), err ? 0xA80000 : 0x00AFFF, err ? 'Erreur' : 'Log', err ? text : '', null, fields);
         }
         console.log(toWrite);
         if(err) {
