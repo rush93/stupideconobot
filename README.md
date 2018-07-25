@@ -6,18 +6,8 @@
 ## INSTALLATION
   - create app & bot discord https://discordapp.com/developers/applications/me
   - invite him to discord
-  - create token.js
-  ```js
-  var token = 'BOT TOKEN'
-
-  module.exports = token;
-``` 
-  - create youtubeApiKey.js
-  ```js
-  var youtubeApiKey = 'API KEY'
-
-  module.exports = youtubeApiKey;
-```
+  - copy token.js.dist to token.js and replace token
+  - copy youtubeApiKey.js.dist youtubeApiKey.js and replace token
   - install modules `npm i`
   - run bot `node stipid-econobot.js`
 ## USAGE
