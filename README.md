@@ -23,6 +23,7 @@ To configure and run you bot, you will need to:
 ```
   - Install dependencies: `npm i`
   - Launch the it: `node stipid-econobot.js`
+
 ## USAGE
 
 In the commands bellow, `_` is your prefix and `<foo>` are command arguments.
