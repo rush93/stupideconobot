@@ -8,8 +8,13 @@ var youtubeRequest = function (guild) {
   request({
    url: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+channelYoutubeId+"&key="+youtubeApiKey,
   }, (error, response, body) => {
-    let result = JSON.parse(body);
-    let nb = result.items[0].statistics.subscriberCount;
+    let nb = 0;
+    try {
+      let result = JSON.parse(body);
+      nb = result.items[0].statistics.subscriberCount;
+    } catch (e) {
+      return;
+    }
     if (
       nb !== youtube.lastNbSubscribers 
       && Math.floor(youtube.lastNbSubscribers/youtube.interval) <  Math.floor(nb/youtube.interval)
