@@ -355,7 +355,7 @@ module.exports = {
     },
     sendUtipMessage: function (utip, percent, channel) {
         var found = utip.found.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
-        var goal = utip.goal.toLocaleString('fr-FR', {style:'decimal', minimumFractionDigits: '2'});
+        var goal = Math.round(utip.goal);
         sendEmbedInChannel(
             Utilsguild.channels.get(channel),
             0x00AFFF,

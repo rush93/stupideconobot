@@ -18,11 +18,17 @@ Utils.setConfig(globalConst);
 var configCommands = require('./commandes/config');
 var youtubeCommands = require('./commandes/youtube');
 var utipCommands = require('./commandes/utip');
+var reloadCommands = require('./commandes/reload');
+var stopCommands = require('./commandes/stop');
+var updateCommands = require('./commandes/update');
 
 var commands = {
   config: configCommands,
   youtube: youtubeCommands,
-  utip: utipCommands
+  utip: utipCommands,
+  reload: reloadCommands,
+  stop: stopCommands,
+  update: updateCommands,
 }
 try {
   bot.on('ready', function () {
@@ -84,7 +90,7 @@ bot.on('message', function (message) {
         Utils.log(e.stack, true);
       });
     } else if( /(^| )utip($|[^a-zA-Z])/gi.test(message.content) ) {
-      var percent = Math.round(100 * utip.found / utip.goal);
+      var percent = Math.floor(100 * utip.found / utip.goal);
       Utils.log('Magik command utip detected', false, message.channel.name, message.author.username, message.content)
       if (!utip.cooldown) {
         Utils.sendUtipMessage(utip, percent, message.channel.id);
