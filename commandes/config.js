@@ -34,6 +34,20 @@ var commands = {
             constants.logChannel = message.mentions.channels.first().id;
             Utils.reply(message, 'Le channel de log à bien été modifié.');
         }
+    },
+    welcome: {
+        help: [
+            'Permet de changer le message de bienvenue.'
+        ],
+        args: '[message]',
+        runCommand: (args, message) => {
+            if (args.length === 0) {
+                Utils.reply(message, "**Message de bienvenue**: " + constants.welcomeMessage);
+                return;
+            }
+            constants.welcomeMessage = args.join(' ');
+            Utils.reply(message, 'Le message de bienvenue a bien été modifié.');
+        }
     }
 }
 
