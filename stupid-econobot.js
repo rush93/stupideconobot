@@ -10,9 +10,13 @@ var guild = null;
 var globalConst = require('./models/constants');
 var youtube = require('./models/youtube');
 var utip = require('./models/utip');
+var roleAction = require('./models/roleAction');
 globalConst.init();
 youtube.init();
 utip.init();
+
+var roleActionManager = require('./manager/roleAction');
+roleAction.init();
 
 Utils.setConfig(globalConst);
 var configCommands = require('./commandes/config');
@@ -21,6 +25,7 @@ var utipCommands = require('./commandes/utip');
 var reloadCommands = require('./commandes/reload');
 var stopCommands = require('./commandes/stop');
 var updateCommands = require('./commandes/update');
+var roleActionCommands = require('./commandes/roleAction');
 
 var commands = {
   config: configCommands,
@@ -29,6 +34,7 @@ var commands = {
   reload: reloadCommands,
   stop: stopCommands,
   update: updateCommands,
+  roleaction: roleActionCommands,
 }
 try {
   bot.on('ready', function () {
@@ -114,11 +120,39 @@ bot.on('message', function (message) {
 });
 
 try {
+  const events = {
+    MESSAGE_REACTION_ADD: 'messageReactionAdd',
+    MESSAGE_REACTION_REMOVE: 'messageReactionRemove',
+  };
+
+  // This is because message reaction dont work with old message :/ thanks discord
+  bot.on('raw', event => {
+    if (!events.hasOwnProperty(event.t)) return;
+  
+    const { d: data } = event;
+    const user = bot.users.get(data.user_id);
+    const channel = bot.channels.get(data.channel_id);
+    if(!channel) { return; }
+  
+    channel.fetchMessage(data.message_id).then((message) => {
+
+      bot.emit('custom' + events[event.t], { emoji: data.emoji, message}, user);
+    }).catch((err) => {
+      Utils.log(err.stack, true);
+    });
+  
+  });
+} catch(e){
+  Utils.log(e.stack, true);
+}
+
+try {
   bot.login(token).then(() => {
     guild = bot.guilds.first()
     Utils.setGuild(guild);
+    roleActionManager.init(roleAction.roleActions, bot);
   }).catch((e) => {
-    Utils.log(e, true);
+    Utils.log(e.stack, true);
   })
   bot.on('error', (err) => {
     Utils.log(err.stack, true);
@@ -156,3 +190,17 @@ setInterval(() => {
   isYoutube = !isYoutube;
 
 }, 15 * 1000)
+
+// message de bienvenue
+try {
+  bot.on('guildMemberAdd', (member) => {
+    if (globalConst.welcomeMessage) {
+      Utils.log('message de bienvenu envoyé',false, 'DM message', member, globalConst.welcomeMessage);
+      Utils.sendDM(member.user, globalConst.welcomeMessage);
+    } else {
+      Utils.log('Pas de message de bienvenue configuré', true);
+    }
+  })
+} catch(err) {
+  Utils.log(err.stack, true);
+}

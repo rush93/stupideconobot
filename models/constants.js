@@ -2,7 +2,8 @@ var fs = require('fs');
 var Utils = require('../utils');
 var constants = {
     prefix: "_",
-    logChannel: null
+    logChannel: null,
+    welcomeMessage: "Bienvenue !"
 }
 
 function save() {
@@ -39,6 +40,9 @@ module.exports = {
     get logChannel() {
         return constants.logChannel;
     },
+    get welcomeMessage() {
+        return constants.welcomeMessage;
+    },
     set prefix(prefix) {
         constants.prefix = prefix;
         save();
@@ -48,5 +52,10 @@ module.exports = {
         constants.logChannel = logChannel;
         save();
         return constants.logChannel;
+    },
+    set welcomeMessage(welcomeMessage) {
+        constants.welcomeMessage = welcomeMessage;
+        save();
+        return constants.welcomeMessage;
     }
 };
