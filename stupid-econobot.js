@@ -95,7 +95,7 @@ bot.on('message', function (message) {
       }).catch((e) => {
         Utils.log(e.stack, true);
       });
-    } else if( /(^| )utip($|[^a-zA-Z])/gi.test(message.content) ) {
+    } else if( (new RegExp(`((utip).*(\<\@[\!]*469496464515661834\>))|((\<\@[\!]*469496464515661834\>).*(utip))`, 'gi')).test(message.content) ) {
       var percent = Math.floor(100 * utip.found / utip.goal);
       Utils.log('Magik command utip detected', false, message.channel.name, message.author.username, message.content)
       if (!utip.cooldown) {
