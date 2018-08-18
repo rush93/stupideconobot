@@ -198,7 +198,8 @@ try {
       Utils.log('message de bienvenu envoyé',false, 'DM message', member, globalConst.welcomeMessage);
       Utils.sendDM(member.user, globalConst.welcomeMessage);
     } else {
-      Utils.log('Pas de message de bienvenue configuré', true);
+      Console.log('Pas de message de bienvenue configuré')
+      //Utils.log('Pas de message de bienvenue configuré', true);
     }
   })
 } catch(err) {
