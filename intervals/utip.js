@@ -54,7 +54,7 @@ var utipRequest = function (guild) {
     if(percent != utip.percent) {
       utip.percent = percent
 
-      if(utip.channel) {
+      if(utip.channel && percent%10 === 0) {
         Utils.sendUtipMessage(utip, percent, utip.channel);
       }
     }
