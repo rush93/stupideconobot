@@ -195,7 +195,6 @@ setInterval(() => {
 try {
   bot.on('guildMemberAdd', (member) => {
     if (globalConst.welcomeMessage) {
-      Utils.log('message de bienvenu envoyé',false, 'DM message', member, globalConst.welcomeMessage);
       Utils.sendDM(member.user, globalConst.welcomeMessage);
     } else {
       Utils.log('Pas de message de bienvenue configuré', true);
