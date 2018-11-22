@@ -12,32 +12,25 @@ var utipRequest = function (guild) {
     if (!body) {
       return;
     }
-    let firstSplit = body.split("class=\"list-unstyled\"");
-    if (!firstSplit || firstSplit.length < 2) {
+    let firstSplit = body.split("amountEarned&quot;&#x3A;");
+    if (!firstSplit || firstSplit.length < 1) {
       return;
     }
-    let secondSplit = firstSplit[1].split("class=\"or-container tiplink-blocks\"");
+    let secondSplit = firstSplit[1].split(",&quot;amountCounter");
     if (!secondSplit || secondSplit.length < 1) {
       return;
     }
-    let lastSplit = secondSplit[0].replace(/\s/g,'').split("target");
-    if (!lastSplit || lastSplit.length < 3) {
+    let found = Number(secondSplit[0]);
+
+    firstSplit = body.split("goalAmount&quot;&#x3A;");
+    if (!firstSplit || firstSplit.length < 1) {
       return;
     }
-    let part1 = lastSplit[0];
-    let part2 = lastSplit[2];
-    let regex1 = RegExp('[^0-9,]*([0-9,]+)€','g');
-    let regex2 = RegExp('[^0-9,]*([0-9,]+)€','g');
-    let resultReg1 = regex1.exec(part1);
-    let resultReg2 = regex2.exec(part2);
-    if(!resultReg1 || resultReg1.length < 2) {
+    secondSplit = firstSplit[1].split(",&quot;goalString");
+    if (!secondSplit || secondSplit.length < 1) {
       return;
     }
-    if(!resultReg2 || resultReg2.length < 2) {
-      return;
-    }
-    let found =  Number(resultReg1[1].replace(/,/g, '.'));
-    let goal =  Number(resultReg2[1].replace(/,/g, '.'));
+    let goal = Number(secondSplit[0]);
     if (isNaN(found)) {
       return;
     }
