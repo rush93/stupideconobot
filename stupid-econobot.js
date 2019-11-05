@@ -10,13 +10,17 @@ var guild = null;
 var globalConst = require('./models/constants');
 var youtube = require('./models/youtube');
 var utip = require('./models/utip');
+var gdoc = require('./models/gdoc');
+var autoMessage = require('./models/autoMessage');
 var roleAction = require('./models/roleAction');
 globalConst.init();
 youtube.init();
 utip.init();
+gdoc.init();
+roleAction.init();
+autoMessage.init();
 
 var roleActionManager = require('./manager/roleAction');
-roleAction.init();
 
 Utils.setConfig(globalConst);
 var configCommands = require('./commandes/config');
@@ -26,6 +30,8 @@ var reloadCommands = require('./commandes/reload');
 var stopCommands = require('./commandes/stop');
 var updateCommands = require('./commandes/update');
 var roleActionCommands = require('./commandes/roleAction');
+var deficitCommands = require('./commandes/deficit');
+var autoMessagesCommands = require('./commandes/autoMessages');
 
 var commands = {
   config: configCommands,
@@ -35,6 +41,8 @@ var commands = {
   stop: stopCommands,
   update: updateCommands,
   roleaction: roleActionCommands,
+  deficit: deficitCommands,
+  automessages: autoMessagesCommands
 }
 try {
   bot.on('ready', function () {
@@ -178,14 +186,30 @@ try {
 } catch (err) {
   Utils.log(err.stack, true);
 }
+try {
+  var gdocRequest = require('./intervals/gdoc');
+  setInterval(() => {
+    gdocRequest(guild);
+  }, 5000);
+} catch (err) {
+  Utils.log(err.stack, true);
+}
+try {
+  var autoMessageInterval = require('./intervals/autoMessages');
+  setInterval(() => {
+    autoMessageInterval(guild);
+  }, 60000);
+} catch (err) {
+  Utils.log(err.stack, true);
+}
 
 var isYoutube = false;
 
 setInterval(() => {
   if (isYoutube) {
-    bot.user.setActivity(Utils.spacer(Number(utip.found)) + "€ sur uTip ce mois-ci");
+    bot.user.setActivity("Déficit : " + Utils.spacer(Number(gdoc.deficit)) + "€");
   } else {
-    bot.user.setActivity(Utils.spacer(Number(youtube.lastNbSubscribers)) + " abonnés youtube");
+    bot.user.setActivity("Abonnés: " + Utils.spacer(Number(youtube.lastNbSubscribers)));
   }
   isYoutube = !isYoutube;
 

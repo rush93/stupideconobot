@@ -6,3 +6,5 @@ token.js
 youtubeApiKey.js
 .DS_Store
 .idea/
+gdoc-credentials.json
+token.json
