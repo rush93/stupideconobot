@@ -7,7 +7,8 @@ var utip = {
   percent: 0,
   channel: null,
   cooldown: null,
-  lastUsed: null
+  lastUsed: null,
+  lastPercentAnnounce: null,
 }
 
 function save() {
@@ -58,6 +59,9 @@ module.exports = {
   get lastUsed() {
       return utip.lastUsed;
   },
+  get lastPercentAnnounce() {
+    return utip.lastPercentAnnounce;
+  },
   set found(found) {
     utip.found = found;
     save();
@@ -92,5 +96,10 @@ module.exports = {
     utip.lastUsed = lastUsed;
     save();
     return utip.lastUsed;
+  },
+  set lastPercentAnnounce(lastPercentAnnounce) {
+    utip.lastPercentAnnounce = lastPercentAnnounce;
+    save();
+    return utip.lastPercentAnnounce;
   }
 };

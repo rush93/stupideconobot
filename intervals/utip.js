@@ -48,8 +48,9 @@ var utipRequest = function (guild) {
       if(percent != utip.percent) {
         utip.percent = percent
   
-        if(utip.channel && percent%10 === 0) {
+        if(utip.channel && percent%10 === 0 && utip.lastPercentAnnounce != percent) {
           Utils.sendUtipMessage(utip, percent, utip.channel);
+          utip.lastPercentAnnounce = percent;
         }
       }
     } catch(e) {
