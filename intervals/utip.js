@@ -38,6 +38,13 @@ var utipRequest = function (guild) {
       if (isNaN(goal)) {
         return;
       }
+      if (!utip.foundOfLastMonth) {
+        utip.foundOfLastMonth = 0;
+      }
+      if (found < utip.found) {
+        Utils.log('found < utip.found: ' + found + ' < ' + utip.found);
+        utip.foundOfLastMonth = utip.found;
+      }
       if (found != utip.found) {
         utip.found = found;
       }
@@ -48,7 +55,7 @@ var utipRequest = function (guild) {
       if(percent != utip.percent) {
         utip.percent = percent
   
-        if(utip.channel && percent%10 === 0 && utip.lastPercentAnnounce != percent) {
+        if(utip.channel && percent%10 === 0 && utip.lastPercentAnnounce != percent && utip.foundOfLastMonth < utip.found) {
           Utils.sendUtipMessage(utip, percent, utip.channel);
           utip.lastPercentAnnounce = percent;
         }

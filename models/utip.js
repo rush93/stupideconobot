@@ -9,6 +9,7 @@ var utip = {
   cooldown: null,
   lastUsed: null,
   lastPercentAnnounce: null,
+  foundOfLastMonth: null,
 }
 
 function save() {
@@ -62,6 +63,9 @@ module.exports = {
   get lastPercentAnnounce() {
     return utip.lastPercentAnnounce;
   },
+  get foundOfLastMonth() {
+    return utip.foundOfLastMonth;
+  },
   set found(found) {
     utip.found = found;
     save();
@@ -101,5 +105,10 @@ module.exports = {
     utip.lastPercentAnnounce = lastPercentAnnounce;
     save();
     return utip.lastPercentAnnounce;
+  },
+  set foundOfLastMonth(foundOfLastMonth) {
+    utip.foundOfLastMonth = foundOfLastMonth;
+    save();
+    return utip.foundOfLastMonth;
   }
 };
