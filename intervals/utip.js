@@ -13,25 +13,10 @@ var utipRequest = function (guild) {
       return;
     }
     try {
-      let firstSplit = body.split("amountEarned&quot;&#x3A;");
-      if (!firstSplit || firstSplit.length < 1) {
-        return;
-      }
-      let secondSplit = firstSplit[1].split(",&quot;amountCounter");
-      if (!secondSplit || secondSplit.length < 1) {
-        return;
-      }
-      let found = Number(secondSplit[0]);
-  
-      firstSplit = body.split("goalAmount&quot;&#x3A;");
-      if (!firstSplit || firstSplit.length < 1) {
-        return;
-      }
-      secondSplit = firstSplit[1].split(",&quot;goalString");
-      if (!secondSplit || secondSplit.length < 1) {
-        return;
-      }
-      let goal = Number(secondSplit[0]);
+      let content = JSON.parse(body);
+      
+      let goal = content.stats.goalAmount;
+      let found = content.stats.amountEarned / 100;
       if (isNaN(found)) {
         return;
       }

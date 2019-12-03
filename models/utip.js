@@ -3,7 +3,7 @@ var Utils = require('../utils');
 var utip = {
   found: 0,
   goal: 0,
-  url: "https://www.utip.io/stupideconomics",
+  url: "https://www.utip.io/creator/profile/stupideconomics",
   percent: 0,
   channel: null,
   cooldown: null,

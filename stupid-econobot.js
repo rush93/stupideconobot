@@ -166,7 +166,7 @@ try {
 
   setInterval(() => {
     youtubeRequest(guild);
-  }, 1000);
+  }, 61 * 1000);
 } catch (err) {
   Utils.log(err.stack, true);
 }
@@ -174,7 +174,7 @@ try {
   var utipRequest = require('./intervals/utip');
   setInterval(() => {
     utipRequest(guild);
-  }, 5000);
+  }, 60 * 1000);
 } catch (err) {
   Utils.log(err.stack, true);
 }
