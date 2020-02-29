@@ -361,7 +361,7 @@ module.exports = {
             0x00AFFF,
             "Utip Stupid Economics",
             `Le uTip est à **${percent}%** de son objectif ( ${found}€/${goal}€ ).
-Soutenez-nous nous avec uTip: ${utip.url}`,
+Soutenez-nous nous avec uTip: https://www.utip.io/stupideconomics`,
             null,
             []);
     }
